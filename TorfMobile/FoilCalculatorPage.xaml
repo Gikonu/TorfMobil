@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TorfMobile.FoilCalculatorPage"
+             Title="Kalkulator Foli">
+
+    <Border
+        Stroke="Black"
+        StrokeThickness="2"
+        BackgroundColor="Black"
+        Padding="15"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="12"/>
+        </Border.StrokeShape>
+        
+        <VerticalStackLayout HorizontalOptions="Center" Spacing="15">
+            <Label 
+                x:Name="OutLabel" 
+                HorizontalTextAlignment="Center"
+                TextColor="White">0</Label>
+            <Button 
+                x:Name="SaveButton" 
+                Text="Zapisz" 
+                Clicked="OnSaveCliced"/>
+            <Entry 
+                x:Name="EntryX" 
+                Placeholder="Grubość foli [μm]"
+                TextColor="White"/>
+            <Entry 
+                x:Name="EntryY" 
+                Placeholder="Średnica rdzenia [mm]"
+                TextColor="White"/>
+            <Entry 
+                x:Name="EntryZ" 
+                Placeholder="Średnica rolki [mm]"
+                TextColor="White"/>
+            <Picker 
+                x:Name="ProductPicker" 
+                Title="Wybierz asortyment" 
+                SelectedIndexChanged="OnProductSelected"
+                TextColor="White"/>
+            <Button 
+                Text="Oblicz" 
+                Clicked="OnResultCliced"/>
+        </VerticalStackLayout>
+    </Border>
+</ContentPage>

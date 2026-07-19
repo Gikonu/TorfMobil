@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TorfMobile.FoilPage"
+             Title="Folia">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!-- Nagłówek -->
+            <Label
+                Text="Zliczanie stanu magazynu"
+                FontSize="28"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <!-- Sekcja dodawania -->
+            <Border Padding="15" BackgroundColor="Black" Stroke="Black">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="12">
+
+                    <Label
+                        Text="Dodaj nowy wpis"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="White"/>
+
+                    <!-- Wybór asortymentu -->
+                    <Picker
+                        Title="Wybierz produkt"
+                        x:Name="ProductPicker"
+                        TextColor="White">
+                    </Picker>
+
+                    <!-- Ilość -->
+                    <Entry
+                        x:Name="QuantityEntry"
+                        Placeholder="Podaj ilość (mb)"
+                        Keyboard="Numeric"
+                        TextColor="White"/>
+
+                    <!-- Przycisk -->
+                    <Button
+                        x:Name="AddButton"
+                        Text="Dodaj do stanu"
+                        HeightRequest="50" 
+                        Clicked="OnAddCliced"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Wybór trybu widoku -->
+            <Border Padding="15" BackgroundColor="Black" Stroke="Black">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="Widok danych"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="White"/>
+
+                    <!--
+                    0 = Kolejność dodawania
+                    1 = Zsumowane istniejące
+                    2 = Pełny stan wszystkich
+                    -->
+                    <Picker
+                        x:Name="ViewModePicker"
+                        Title="Wybierz sposób wyświetlania"
+                        SelectedIndexChanged="OnViewChange"
+                        TextColor="White">
+                        <Picker.Items>
+                            <x:String>Historia zliczania</x:String>
+                            <x:String>Zsumowane wartości</x:String>
+                            <x:String>Pełny stan magazynu</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Widok 1: Historia -->
+            <VerticalStackLayout x:Name="HistoryView" Spacing="8">
+
+                <Label
+                    Text="Historia zliczania"
+                    FontSize="18"
+                    FontAttributes="Bold" />
+
+                <CollectionView x:Name="HistoryCollection">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="10" Margin="0,4">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label
+                                        Text="{Binding Name}"
+                                        FontSize="16" />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Amount}"
+                                        FontAttributes="Bold" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Widok 2: Zsumowane tylko istniejące -->
+            <VerticalStackLayout x:Name="SummedView" IsVisible="False" Spacing="8">
+
+                <Label
+                    Text="Zsumowane wartości"
+                    FontSize="18"
+                    FontAttributes="Bold" />
+
+                <CollectionView x:Name="SummedCollection">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="10" Margin="0,4">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label
+                                        Text="{Binding ProductName}"
+                                        FontSize="16" />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding TotalQuantityDisplay}"
+                                        FontAttributes="Bold" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Widok 3: Wszystkie produkty -->
+            <VerticalStackLayout x:Name="FullInventoryView" IsVisible="False" Spacing="8">
+
+                <Label
+                    Text="Pełny stan magazynu"
+                    FontSize="18"
+                    FontAttributes="Bold" />
+
+                <CollectionView x:Name="FullInventoryCollection">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="10" Margin="0,4">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label
+                                        Text="{Binding ProductName}"
+                                        FontSize="16" />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding TotalQuantityDisplay}"
+                                        FontAttributes="Bold" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
