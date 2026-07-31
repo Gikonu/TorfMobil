@@ -14,10 +14,7 @@
         {
             count++;
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            CounterBtn.Text = $"Fuel used: {count}L";
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }

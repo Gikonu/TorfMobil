@@ -66,9 +66,8 @@
                         TextColor="White"/>
 
                     <!--
-                    0 = Kolejność dodawania
-                    1 = Zsumowane istniejące
-                    2 = Pełny stan wszystkich
+                    1 = Kolejność dodawania
+                    0 = Pełny stan wszystkich
                     -->
                     <Picker
                         x:Name="ViewModePicker"
@@ -76,9 +75,8 @@
                         SelectedIndexChanged="OnViewChange"
                         TextColor="White">
                         <Picker.Items>
-                            <x:String>Historia zliczania</x:String>
-                            <x:String>Zsumowane wartości</x:String>
                             <x:String>Pełny stan magazynu</x:String>
+                            <x:String>Historia zliczania</x:String>
                         </Picker.Items>
                     </Picker>
                 </VerticalStackLayout>

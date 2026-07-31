@@ -28,7 +28,10 @@ namespace TorfMobile
 
             var t = (FoilMagazine.FoilData)ProductPicker.SelectedItem;
             if (t != null)
+            {
                 t.Amount += result;
+                magazine.foilQueue.Add(new(t.Name, t.Index, t.Thickness, result));
+            }
 
             await Task.Delay(2000);
 

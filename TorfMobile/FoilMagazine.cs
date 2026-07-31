@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.Sqlite;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Platform;
 
 namespace TorfMobile
 {
@@ -15,8 +19,8 @@ namespace TorfMobile
             public string Name { get; }
             public string Index { get; }
             public int Thickness { get; }
-            private float amount;
-            public float Amount 
+            private int amount;
+            public int Amount 
             { 
                 get => amount; 
                 set
@@ -34,7 +38,7 @@ namespace TorfMobile
                 Amount = 0;
             }
 
-            public FoilData(string name, string index, int thickness, float amount)
+            public FoilData(string name, string index, int thickness, int amount)
             {
                 Name = name;
                 Index = index;
@@ -44,6 +48,10 @@ namespace TorfMobile
         }
 
         public List<FoilData> foilData;
+        public ObservableCollection<FoilData> foilQueue = new();
+
+        private SqliteConnection dataBase;
+        private SqliteCommand command;
 
         public FoilMagazine()
         {
@@ -96,6 +104,93 @@ namespace TorfMobile
             new("Ziemia do pomidorów 50L [SUM]",            "SUM.050.POM", 90, 0),
             new("Torf odkwaszony 80L [SUM]",                "SUM.005.TOD", 90, 0)
             };
+
+            dataBase = new SqliteConnection("Data Source=Magazine.db");
+            StartDataBase();
+        }
+
+        public void CloseDataBase()
+        {
+            SaveDataBase();
+            dataBase.Close();
+        }
+
+        private void StartDataBase()
+        {
+            dataBase.Open();
+
+            command = dataBase.CreateCommand();
+
+            command.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='Foil'";
+
+            long exists = (long)command.ExecuteScalar();
+
+            if (exists == 0)
+            {
+                command.CommandText =
+                @"
+                CREATE TABLE Foil
+                (
+                Id TEXT PRIMARY KEY,
+                Name TEXT NOT NULL,
+                Amount INTEGER NOT NULL
+                )";
+
+                command.ExecuteNonQuery();
+
+                SaveDataBase();
+            }
+            else
+            {
+                LoadDataBase();
+            }
+
+        }
+
+        private void SaveDataBase()
+        {
+            using var transaction = dataBase.BeginTransaction();
+            command.Transaction = transaction;
+
+            foreach (var v in foilData)
+            {
+                command.CommandText =
+                @"INSERT INTO Foil(Id,Name,Amount)
+                  VALUES($id,$name,$amount)
+                  ON CONFLICT(Id)
+                  DO UPDATE SET Amount = excluded.Amount;";
+
+                command.Parameters.AddWithValue("$id", v.Index);
+                command.Parameters.AddWithValue("$name", v.Name);
+                command.Parameters.AddWithValue("$amount", v.Amount);
+
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
+            }
+
+            transaction.Commit();
+        }
+
+        private void LoadDataBase()
+        {
+            command.CommandText = "SELECT * FROM Foil";
+
+            using var reader = command.ExecuteReader();
+
+            while(reader.Read())
+            {
+                String id = (String)reader["Id"];
+                long amount = (long)reader["Amount"];
+
+                foreach(var v in foilData)
+                {
+                    if(v.Index == id)
+                    {
+                        v.Amount = (int)amount;
+                        break;
+                    }
+                }
+            }
         }
     }
 }
