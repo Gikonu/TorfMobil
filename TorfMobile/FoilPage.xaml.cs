@@ -14,10 +14,10 @@ namespace TorfMobile
 
             this.magazine = magazine;
 
-            ProductPicker.ItemsSource = magazine.foilData;
+            ProductPicker.ItemsSource = magazine.foilData.Values.ToList<FoilData>();
             ProductPicker.ItemDisplayBinding = new Binding("Name");
 
-            HistoryCollection.ItemsSource = magazine.foilData;
+            HistoryCollection.ItemsSource = magazine.foilData.Values.ToList<FoilData>();
         }
 
         private void OnViewChange(object sender, EventArgs e)
@@ -25,7 +25,7 @@ namespace TorfMobile
             switch(ViewModePicker.SelectedIndex)
             {
                 case 0:
-                    HistoryCollection.ItemsSource = magazine.foilData;
+                    HistoryCollection.ItemsSource = magazine.foilData.Values.ToList<FoilData>();
                     break;
                 case 1:
                     HistoryCollection.ItemsSource = magazine.foilQueue;
@@ -44,11 +44,10 @@ namespace TorfMobile
                 AddButton.Text = "Dodane";
                 bIsSaving = true;
 
-                var t = (FoilMagazine.FoilData)ProductPicker.SelectedItem;
+                var t = (FoilData)ProductPicker.SelectedItem;
                 if (t != null)
                 {
-                    t.Amount += int.Parse(QuantityEntry.Text);
-                    magazine.foilQueue.Add(new(t.Name, t.Index, t.Thickness, int.Parse(QuantityEntry.Text)));
+                    magazine.AddFoil(new(t.Name, t.Index, t.Thickness, int.Parse(QuantityEntry.Text)));
                 }
 
                 await Task.Delay(2000);
@@ -58,6 +57,20 @@ namespace TorfMobile
             }
         }
 
-        
+        private async void OnResetCliced(object sender, EventArgs e)
+        {
+            bool confirm = await DisplayAlert(
+                "Reset magazynu",
+                "Czy na pewno wyzerowaæ wszystkie iloœci?",
+                "Tak",
+                "Anuluj");
+
+            if (!confirm)
+                return;
+
+            magazine.ResetMagazine();
+
+            await DisplayAlert("Gotowe", "Magazyn zosta³ wyzerowany.", "OK");
+        }
     }
 }

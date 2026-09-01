@@ -14,7 +14,7 @@ namespace TorfMobile
             InitializeComponent();
             this.magazine = magazine;
 
-            ProductPicker.ItemsSource = magazine.foilData;
+            ProductPicker.ItemsSource = magazine.foilData.Values.ToList<FoilData>();
             ProductPicker.ItemDisplayBinding = new Binding("Name");
         }
         private async void OnSaveCliced(object sender, EventArgs e)
@@ -26,11 +26,10 @@ namespace TorfMobile
             SaveButton.Text = "Zapisane";
             bIsSaving = true;
 
-            var t = (FoilMagazine.FoilData)ProductPicker.SelectedItem;
+            var t = (FoilData)ProductPicker.SelectedItem;
             if (t != null)
             {
-                t.Amount += result;
-                magazine.foilQueue.Add(new(t.Name, t.Index, t.Thickness, result));
+                magazine.AddFoil(new(t.Name, t.Index, t.Thickness, result));
             }
 
             await Task.Delay(2000);
@@ -43,10 +42,14 @@ namespace TorfMobile
         {
             if (ProductPicker.SelectedIndex != -1)
             {
-                EntryX.Text = magazine.foilData[ProductPicker.SelectedIndex].Thickness.ToString();
-                EntryY.Text = "105";
-                result = 0;
-                OutLabel.Text = result.ToString() + " mb";
+                FoilData v = (FoilData)ProductPicker.SelectedItem;
+                if (v != null)
+                {
+                    EntryX.Text = v.Thickness.ToString();
+                    EntryY.Text = "105";
+                    result = 0;
+                    OutLabel.Text = result.ToString() + " mb";
+                }
             }
         }
 

@@ -20,6 +20,7 @@ namespace TorfMobile
 #endif
 
             builder.Services.AddSingleton<FoilMagazine>();
+            builder.Services.AddSingleton<DataBase>();
 
             return builder.Build();
         }

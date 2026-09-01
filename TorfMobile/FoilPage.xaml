@@ -48,6 +48,12 @@
                         Text="Dodaj do stanu"
                         HeightRequest="50" 
                         Clicked="OnAddCliced"/>
+
+                    <Button
+                        x:Name="ResetButton"
+                        Text="Zresetuj magazyn"
+                        HeightRequest="50" 
+                        Clicked="OnResetCliced"/>
                 </VerticalStackLayout>
             </Border>
 
@@ -102,62 +108,6 @@
                                     <Label
                                         Grid.Column="1"
                                         Text="{Binding Amount}"
-                                        FontAttributes="Bold" />
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-
-            <!-- Widok 2: Zsumowane tylko istniejące -->
-            <VerticalStackLayout x:Name="SummedView" IsVisible="False" Spacing="8">
-
-                <Label
-                    Text="Zsumowane wartości"
-                    FontSize="18"
-                    FontAttributes="Bold" />
-
-                <CollectionView x:Name="SummedCollection">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Padding="10" Margin="0,4">
-                                <Grid ColumnDefinitions="*,Auto">
-                                    <Label
-                                        Text="{Binding ProductName}"
-                                        FontSize="16" />
-
-                                    <Label
-                                        Grid.Column="1"
-                                        Text="{Binding TotalQuantityDisplay}"
-                                        FontAttributes="Bold" />
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-
-            <!-- Widok 3: Wszystkie produkty -->
-            <VerticalStackLayout x:Name="FullInventoryView" IsVisible="False" Spacing="8">
-
-                <Label
-                    Text="Pełny stan magazynu"
-                    FontSize="18"
-                    FontAttributes="Bold" />
-
-                <CollectionView x:Name="FullInventoryCollection">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Padding="10" Margin="0,4">
-                                <Grid ColumnDefinitions="*,Auto">
-                                    <Label
-                                        Text="{Binding ProductName}"
-                                        FontSize="16" />
-
-                                    <Label
-                                        Grid.Column="1"
-                                        Text="{Binding TotalQuantityDisplay}"
                                         FontAttributes="Bold" />
                                 </Grid>
                             </Border>
