@@ -75,4 +75,16 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<!--
+	<ItemGroup Condition="$(TargetFramework.Contains('-android'))">
+		<MauiXaml Remove="WindowsPages\**\*.xaml" />
+		<Compile Remove="WindowsPages\**\*.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
+		<MauiXaml Remove="AndroidPages\**\*.xaml" />
+		<Compile Remove="AndroidPages\**\*.xaml.cs" />
+	</ItemGroup>
+	-->
+
 </Project>

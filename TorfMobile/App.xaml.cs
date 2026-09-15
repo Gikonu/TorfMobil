@@ -1,4 +1,5 @@
-﻿namespace TorfMobile
+﻿
+namespace TorfMobile
 {
     public partial class App : Application
     {
@@ -12,16 +13,21 @@
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            var window = new Window(new AppShell());
+            var window = new Window();
 
 #if WINDOWS
-            window.Width = 600;
+            window.Page = new WinAppShell();
+
+            window.Width = 800;
             window.Height = 900;
 
             window.Destroying += (s, e) =>
             {
-            magazine.CloseDataBase();
+            
             };
+#elif ANDROID
+            window.Page = new AndAppShell();
+
 #endif
 
             return window;
@@ -30,7 +36,7 @@
         protected override void OnSleep()
         {
             base.OnSleep();
-            magazine.CloseDataBase();
+            
         }
     }
 }

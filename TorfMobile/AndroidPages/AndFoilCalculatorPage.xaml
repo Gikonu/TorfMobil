@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TorfMobile.FoilCalculatorPage"
+             x:Class="TorfMobile.AndFoilCalculatorPage"
              Title="Kalkulator Foli">
 
     <Border
@@ -27,14 +27,17 @@
             <Entry 
                 x:Name="EntryX" 
                 Placeholder="Grubość foli [μm]"
+                Keyboard="Numeric"
                 TextColor="White"/>
             <Entry 
                 x:Name="EntryY" 
                 Placeholder="Średnica rdzenia [mm]"
+                Keyboard="Numeric"
                 TextColor="White"/>
             <Entry 
                 x:Name="EntryZ" 
                 Placeholder="Średnica rolki [mm]"
+                Keyboard="Numeric"
                 TextColor="White"/>
             <Picker 
                 x:Name="ProductPicker" 

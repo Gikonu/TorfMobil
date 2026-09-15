@@ -1,14 +1,15 @@
+
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace TorfMobile
 {
-	public partial class FoilPage : ContentPage
+	public partial class AndFoilPage : ContentPage
 	{
         FoilMagazine magazine;
         bool bIsSaving = false;
 
-        public FoilPage(FoilMagazine magazine)
+        public AndFoilPage(FoilMagazine magazine)
 		{
 			InitializeComponent();
 

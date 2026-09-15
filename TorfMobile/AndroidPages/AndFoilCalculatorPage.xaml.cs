@@ -1,15 +1,16 @@
+
 using Microsoft.Maui.Layouts;
 
 namespace TorfMobile
 {
-    public partial class FoilCalculatorPage : ContentPage
+    public partial class AndFoilCalculatorPage : ContentPage
     {
         FoilMagazine magazine;
         int result = 0;
 
         bool bIsSaving = false;
 
-        public FoilCalculatorPage(FoilMagazine magazine)
+        public AndFoilCalculatorPage(FoilMagazine magazine)
         {
             InitializeComponent();
             this.magazine = magazine;

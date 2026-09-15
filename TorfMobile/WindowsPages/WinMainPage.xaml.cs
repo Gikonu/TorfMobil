@@ -1,10 +1,11 @@
-﻿namespace TorfMobile
+﻿
+namespace TorfMobile
 {
-    public partial class MainPage : ContentPage
+    public partial class WinMainPage : ContentPage
     {
         int count = 0;
 
-        public MainPage()
+        public WinMainPage()
         {
             InitializeComponent();
             

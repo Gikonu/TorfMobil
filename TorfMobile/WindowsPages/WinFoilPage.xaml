@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TorfMobile.WinFoilPage">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!-- Nagłówek -->
+            <Label
+                Text="Zliczanie stanu magazynu"
+                FontSize="28"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <!-- Sekcja dodawania -->
+            <Grid ColumnDefinitions="10*,6*" ColumnSpacing="15">
+
+                <Border Grid.Column="0" Padding="15" BackgroundColor="Black" Stroke="Black">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label
+                        Text="Dodaj nowy wpis"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="White"/>
+
+                        <!-- Wybór asortymentu -->
+                        <Picker
+                        Title="Wybierz produkt"
+                        x:Name="ProductPicker"
+                        SelectedIndexChanged="OnProductChange"
+                        TextColor="White">
+                        </Picker>
+
+                        <!-- Ilość -->
+                        <Entry
+                        x:Name="QuantityEntry"
+                        Placeholder="Podaj ilość (mb)"
+                        Keyboard="Numeric"
+                        TextColor="White"/>
+
+                        <!-- Przycisk -->
+                        <Button
+                        x:Name="AddButton"
+                        Text="Dodaj do stanu"
+                        HeightRequest="50" 
+                        Clicked="OnAddCliced"/>
+
+                        <Button
+                        x:Name="ResetButton"
+                        Text="Zresetuj magazyn"
+                        HeightRequest="50" 
+                        Clicked="OnResetCliced"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="1" Stroke="Black" BackgroundColor="Black" Padding="15">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="15">
+
+                        <Label
+                        Text="Kalkulator"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="White"/>
+                        
+                        <Entry 
+                        x:Name="EntryX" 
+                        Placeholder="Grubość foli [μm]"
+                        Keyboard="Numeric"
+                        TextColor="White"/>
+                        
+                        <Entry 
+                        x:Name="EntryY" 
+                        Placeholder="Średnica rdzenia [mm]"
+                        Keyboard="Numeric"
+                        TextColor="White"/>
+
+                        <Entry 
+                        x:Name="EntryZ" 
+                        Placeholder="Średnica rolki [mm]"
+                        Keyboard="Numeric"
+                        TextColor="White"/>
+
+                        <Button 
+                        Text="Oblicz" 
+                        Clicked="OnResultCliced"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Wybór trybu widoku -->
+            <Border Padding="15" BackgroundColor="Black" Stroke="Black">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="Widok danych"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="White"/>
+
+                    <Picker
+                        x:Name="ViewModePicker"
+                        Title="Wybierz sposób wyświetlania"
+                        SelectedIndexChanged="OnViewChange"
+                        TextColor="White">
+                        <Picker.Items>
+                            <x:String>Pełny stan magazynu</x:String>
+                            <x:String>Historia zliczania</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Widok magazynu -->
+            <VerticalStackLayout Spacing="8">
+
+                <Label
+                    Text="Historia zliczania"
+                    FontSize="18"
+                    FontAttributes="Bold" />
+
+                <CollectionView x:Name="HistoryCollection">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="10" Margin="0,4">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label
+                                        Text="{Binding Name}"
+                                        FontSize="16" />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Amount}"
+                                        FontAttributes="Bold" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

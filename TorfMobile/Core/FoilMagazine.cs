@@ -87,11 +87,6 @@ namespace TorfMobile
             dataBase.ClearFoilTable();
         }
 
-        public void CloseDataBase()
-        {
-            
-        }
-
         public void AddFoil(FoilData foil)
         {
             foil.Id = nextId;

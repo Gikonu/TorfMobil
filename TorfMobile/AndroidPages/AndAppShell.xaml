@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="TorfMobile.AppShell"
+    x:Class="TorfMobile.AndAppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TorfMobile"
@@ -9,15 +9,15 @@
     <TabBar>
         <ShellContent
             Title="Home"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" />
+            ContentTemplate="{DataTemplate local:AndMainPage}"
+            Route="AndMainPage" />
         <ShellContent
             Title="Folia"
-            ContentTemplate="{DataTemplate local:FoilPage}"
-            Route="FoilPage" />
+            ContentTemplate="{DataTemplate local:AndFoilPage}"
+            Route="AndFoilPage" />
         <ShellContent
             Title="Kalkulator"
-            ContentTemplate="{DataTemplate local:FoilCalculatorPage}"
-            Route="CalculatorPage" />
+            ContentTemplate="{DataTemplate local:AndFoilCalculatorPage}"
+            Route="AndCalculatorPage" />
     </TabBar>
 </Shell>
