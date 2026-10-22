@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TorfMobile.AndConnectionPage"
+             Title="ConnectionPage">
+    <Grid
+        Padding="16"
+        RowDefinitions="Auto,Auto,*,Auto"
+        RowSpacing="14">
+
+        <!-- Nagłówek -->
+        <VerticalStackLayout
+            Grid.Row="0"
+            Spacing="2">
+
+            <Label
+                Text="Połącz urządzenie"
+                FontSize="26"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="Urządzenia TorfMobile w tej samej sieci"
+                FontSize="13"
+                Opacity="0.6" />
+
+            <!-- Tymczasowa diagnostyka aktywnych połączeń i listy UI -->
+            <Label
+                x:Name="NetworkDebugLabel"
+                Text="Diagnostyka: uruchamianie..."
+                FontSize="12"
+                TextColor="#EAB308"
+                LineBreakMode="WordWrap" />
+
+        </VerticalStackLayout>
+
+
+        <!-- Skanowanie -->
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="*,Auto"
+            ColumnSpacing="10">
+
+            <HorizontalStackLayout
+                Spacing="8"
+                VerticalOptions="Center">
+
+                <ActivityIndicator
+                    IsRunning="{Binding IsScanning}"
+                    IsVisible="{Binding IsScanning}"
+                    WidthRequest="20"
+                    HeightRequest="20" />
+
+                <Label
+                    Text="{Binding ScanStatus}"
+                    VerticalOptions="Center"
+                    Opacity="0.7" />
+
+            </HorizontalStackLayout>
+
+            <Button
+                Grid.Column="1"
+                Text="Skanuj"
+                Command="{Binding ScanCommand}"
+                Padding="16,8" />
+
+        </Grid>
+
+
+        <!-- Urządzenia -->
+        <CollectionView
+            Grid.Row="2"
+            ItemsSource="{Binding Devices}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedDevice}">
+
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Spacing="6">
+
+                    <Label
+                        Text="Brak urządzeń"
+                        FontSize="18"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Uruchom skanowanie sieci."
+                        Opacity="0.6"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Border
+                        Margin="0,5"
+                        Padding="14"
+                        Stroke="#505050"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8">
+
+                        <Grid
+                            ColumnDefinitions="Auto,*,Auto"
+                            RowDefinitions="Auto,Auto,Auto,Auto">
+
+                            <Label
+                                Grid.RowSpan="4"
+                                Text="📱"
+                                FontSize="30"
+                                VerticalOptions="Center"
+                                Margin="0,0,12,0" />
+
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding Name}"
+                                FontSize="17"
+                                FontAttributes="Bold" />
+
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding IpAddress}"
+                                FontSize="12"
+                                Opacity="0.6" />
+
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Text="{Binding Platform}"
+                                FontSize="12"
+                                Opacity="0.6" />
+
+                            <Label
+                                Grid.Column="2"
+                                Grid.RowSpan="4"
+                                Text="›"
+                                FontSize="28"
+                                VerticalOptions="Center"
+                                Opacity="0.5" />
+
+                            <Label
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Text="{Binding ConnectionStatus}"
+                                FontSize="12"
+                                TextColor="Gray">   
+
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding IsConnected}"
+                                        Value="True">   
+                                        <Setter
+                                            Property="TextColor"
+                                            Value="#22C55E" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+
+                            </Label>
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+
+        <!-- Dolny panel -->
+        <Border
+            Grid.Row="3"
+            Padding="12"
+            Stroke="#505050"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 8">
+
+            <Grid
+                RowDefinitions="Auto,Auto"
+                ColumnDefinitions="*,Auto"
+                RowSpacing="6">
+
+                <VerticalStackLayout
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.RowSpan="2"
+                    Spacing="2">
+
+                    <Label
+                        Text="{Binding SelectedDevice.Name}"
+                        FontAttributes="Bold"
+                        FontSize="15" />
+
+                    <Label
+                        Text="{Binding ConnectionStatus}"
+                        FontSize="12"
+                        Opacity="0.7" />
+
+                </VerticalStackLayout>
+
+                <Button
+                    Grid.Column="1"
+                    Grid.RowSpan="2"
+                    Text="Połącz"
+                    Command="{Binding ConnectCommand}"
+                    Padding="20,10" />
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+</ContentPage>

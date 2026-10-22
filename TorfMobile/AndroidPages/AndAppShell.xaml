@@ -19,5 +19,9 @@
             Title="Kalkulator"
             ContentTemplate="{DataTemplate local:AndFoilCalculatorPage}"
             Route="AndCalculatorPage" />
+        <ShellContent
+            Title="Synchronizacja"
+            ContentTemplate="{DataTemplate local:AndConnectionPage}"
+            Route="AndConnectionPage" />
     </TabBar>
 </Shell>

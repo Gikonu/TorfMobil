@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TorfMobile.WinConnectionPage">
+    <Grid
+        Padding="24"
+        RowDefinitions="Auto,*"
+        RowSpacing="20"
+        ColumnDefinitions="2*,3*"
+        ColumnSpacing="24">
+
+        <!-- Nagłówek -->
+        <VerticalStackLayout
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Spacing="4">
+
+            <Label
+                Text="Synchronizacja urządzeń"
+                FontSize="28"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="Wyszukaj urządzenia TorfMobile w sieci lokalnej"
+                FontSize="14"
+                Opacity="0.65" />
+
+        </VerticalStackLayout>
+
+
+        <!-- LEWA STRONA -->
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Padding="16"
+            StrokeThickness="1"
+            Stroke="#505050"
+            StrokeShape="RoundRectangle 8">
+
+            <Grid
+                RowDefinitions="Auto,Auto,*"
+                RowSpacing="12">
+
+                <!-- Nagłówek -->
+                <Grid
+                    Grid.Row="0"
+                    ColumnDefinitions="*,Auto">
+
+                    <Label
+                        Text="Dostępne urządzenia"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center" />
+
+                    <Button
+                        Grid.Column="1"
+                        Text="Skanuj"
+                        Command="{Binding ScanCommand}"
+                        Padding="18,8" />
+
+                </Grid>
+
+                <!-- Status skanowania -->
+                <HorizontalStackLayout
+                    Grid.Row="1"
+                    Spacing="8">
+
+                    <ActivityIndicator
+                        IsRunning="{Binding IsScanning}"
+                        IsVisible="{Binding IsScanning}"
+                        WidthRequest="20"
+                        HeightRequest="20" />
+
+                    <Label
+                        Text="{Binding ScanStatus}"
+                        VerticalOptions="Center"
+                        Opacity="0.7" />
+
+                </HorizontalStackLayout>
+
+
+                <!-- Lista urządzeń -->
+                <CollectionView
+                    Grid.Row="2"
+                    ItemsSource="{Binding Devices}"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedDevice}">
+
+                    <CollectionView.EmptyView>
+
+                        <VerticalStackLayout
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Spacing="8">
+
+                            <Label
+                                Text="Brak urządzeń"
+                                FontSize="18"
+                                HorizontalTextAlignment="Center" />
+
+                            <Label
+                                Text="Naciśnij „Skanuj”, aby wyszukać urządzenia w sieci."
+                                Opacity="0.6"
+                                HorizontalTextAlignment="Center" />
+
+                        </VerticalStackLayout>
+
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Border
+                                Margin="0,4"
+                                Padding="14"
+                                StrokeThickness="1"
+                                Stroke="#505050"
+                                StrokeShape="RoundRectangle 6">
+
+                                <Grid
+                                    ColumnDefinitions="Auto,*,Auto"
+                                    RowDefinitions="Auto,Auto">
+
+                                    <Label
+                                        Grid.RowSpan="2"
+                                        Text="📱"
+                                        FontSize="28"
+                                        Margin="0,0,12,0"
+                                        VerticalOptions="Center" />
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Name}"
+                                        FontSize="16"
+                                        FontAttributes="Bold" />
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding IpAddress}"
+                                        FontSize="12"
+                                        Opacity="0.6" />
+
+                                    <Label
+                                        Grid.Column="2"
+                                        Grid.RowSpan="2"
+                                        Text="{Binding Platform}"
+                                        VerticalOptions="Center"
+                                        Opacity="0.7" />
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- PRAWA STRONA -->
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Padding="20"
+            StrokeThickness="1"
+            Stroke="#505050"
+            StrokeShape="RoundRectangle 8">
+
+            <Grid
+                RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
+                RowSpacing="16">
+
+                <Label
+                    Grid.Row="0"
+                    Text="Wybrane urządzenie"
+                    FontSize="20"
+                    FontAttributes="Bold" />
+
+
+                <!-- Nazwa -->
+                <Grid
+                    Grid.Row="1"
+                    ColumnDefinitions="120,*">
+
+                    <Label
+                        Text="Nazwa:"
+                        FontAttributes="Bold" />
+
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding SelectedDevice.Name}" />
+
+                </Grid>
+
+
+                <!-- IP -->
+                <Grid
+                    Grid.Row="2"
+                    ColumnDefinitions="120,*">
+
+                    <Label
+                        Text="Adres IP:"
+                        FontAttributes="Bold" />
+
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding SelectedDevice.IpAddress}" />
+
+                </Grid>
+
+
+                <!-- Platforma -->
+                <Grid
+                    Grid.Row="3"
+                    ColumnDefinitions="120,*">
+
+                    <Label
+                        Text="Platforma:"
+                        FontAttributes="Bold" />
+
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding SelectedDevice.Platform}" />
+
+                </Grid>
+
+
+                <!-- Status -->
+                <VerticalStackLayout
+                    Grid.Row="4"
+                    Spacing="8">
+
+                    <Label
+                        Text="Status połączenia"
+                        FontAttributes="Bold" />
+
+                    <Label
+                        Text="{Binding ConnectionStatus}"
+                        FontSize="16" />
+
+                    <Label
+                        Text="{Binding ConnectionDetails}"
+                        FontSize="13"
+                        Opacity="0.6" />
+
+                </VerticalStackLayout>
+
+
+                <!-- Przyciski -->
+                <HorizontalStackLayout
+                    Grid.Row="5"
+                    Spacing="10"
+                    HorizontalOptions="End">
+
+                    <Button
+                        Text="Rozłącz"
+                        Command="{Binding DisconnectCommand}"
+                        Padding="20,10" />
+
+                    <Button
+                        Text="Połącz"
+                        Command="{Binding ConnectCommand}"
+                        Padding="28,10" />
+
+                </HorizontalStackLayout>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+</ContentPage>

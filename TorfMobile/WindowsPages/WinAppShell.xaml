@@ -126,6 +126,38 @@
 
                 </Border>
 
+                <!-- CONNECT -->
+                <Border
+                    x:Name="ConnectItem"
+                    HeightRequest="42"
+                    Padding="10,0"
+                    StrokeThickness="0"
+                    BackgroundColor="Transparent">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="ConnectClicked"/>
+                    </Border.GestureRecognizers>
+
+                    <HorizontalStackLayout
+                        Spacing="10"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="▣"
+                            FontSize="18"
+                            TextColor="White"/>
+
+                        <Label
+                            Text="Synchronizacja"
+                            FontSize="14"
+                            TextColor="White"
+                            VerticalOptions="Center"/>
+
+                    </HorizontalStackLayout>
+
+                </Border>
+
             </VerticalStackLayout>
 
 
@@ -174,5 +206,9 @@
     <ShellContent
         Route="WinFoilPage"
         ContentTemplate="{DataTemplate local:WinFoilPage}"/>
+
+    <ShellContent
+        Route="WinConnectionPage"
+        ContentTemplate="{DataTemplate local:WinConnectionPage}"/>
 
 </Shell>

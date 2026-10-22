@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using TorfMobile.Network;
+using TorfMobile.ViewModels;
 
 namespace TorfMobile
 {
@@ -21,6 +23,9 @@ namespace TorfMobile
 
             builder.Services.AddSingleton<FoilMagazine>();
             builder.Services.AddSingleton<DataBase>();
+
+            builder.Services.AddSingleton<NetworkService>();
+            builder.Services.AddSingleton<DeviceConnectionViewModel>();
 
             return builder.Build();
         }

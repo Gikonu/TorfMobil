@@ -18,7 +18,7 @@ namespace TorfMobile
 #if WINDOWS
             window.Page = new WinAppShell();
 
-            window.Width = 800;
+            window.Width = 1200;
             window.Height = 900;
 
             window.Destroying += (s, e) =>

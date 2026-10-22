@@ -26,11 +26,18 @@ namespace TorfMobile
             await GoToAsync("//WinFoilPage");
         }
 
+        private async void ConnectClicked(object sender, TappedEventArgs e)
+        {
+            SetActiveItem(ConnectItem);
+
+            await GoToAsync("//WinConnectionPage");
+        }
+
         //private async void SettingsClicked(object sender, TappedEventArgs e)
         //{
-            //SetActiveItem(SettingsItem);
+        //SetActiveItem(SettingsItem);
 
-            //await GoToAsync("//WinSettingsPage");
+        //await GoToAsync("//WinSettingsPage");
         //}
 
 
@@ -39,6 +46,7 @@ namespace TorfMobile
             
             HomeItem.BackgroundColor = Colors.Transparent;
             FoilItem.BackgroundColor = Colors.Transparent;
+            ConnectItem.BackgroundColor = Colors.Transparent;
             SettingsItem.BackgroundColor = Colors.Transparent;
 
             
