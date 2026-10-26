@@ -20,8 +20,12 @@
             ContentTemplate="{DataTemplate local:AndFoilCalculatorPage}"
             Route="AndCalculatorPage" />
         <ShellContent
-            Title="Synchronizacja"
+            Title="Połączenia"
             ContentTemplate="{DataTemplate local:AndConnectionPage}"
             Route="AndConnectionPage" />
+        <ShellContent
+            Title="Synchronizacja"
+            ContentTemplate="{DataTemplate local:AndSyncPage}"
+            Route="AndSyncPage" />
     </TabBar>
 </Shell>

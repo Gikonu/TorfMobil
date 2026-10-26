@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TorfMobile.WinSyncPage"
+    Title="Synchronizacja"
+    BackgroundColor="{AppThemeBinding Light=#F6F7FA, Dark=#111827}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,24,28,36"
+                             Spacing="18" MaximumWidthRequest="1200"
+                             HorizontalOptions="Fill">
+
+            <!-- Nagłówek -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Synchronizacja zliczeń"
+                       FontSize="28" FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}" />
+                <Label Text="Wybierz urządzenie, rodzaje zliczeń i sposób synchronizacji w lokalnej sieci."
+                       FontSize="14"
+                       TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" />
+            </VerticalStackLayout>
+
+            <!-- Dwie kolumny dostępne na PC -->
+            <Grid ColumnDefinitions="3*,2*" ColumnSpacing="18">
+                <VerticalStackLayout Grid.Column="0" Spacing="18">
+
+                    <Border Padding="20" StrokeThickness="1"
+                            Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#475569}"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="14">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <Label Text="1. Połączone urządzenie"
+                                       FontSize="19" FontAttributes="Bold"
+                                       VerticalOptions="Center" />
+                                <Button Grid.Column="1" Text="Odśwież listę"
+                                        Command="{Binding RefreshPeersCommand}"
+                                        Padding="16,8" />
+                            </Grid>
+                            <Picker Title="Wybierz urządzenie"
+                                    ItemsSource="{Binding ConnectedDevices}"
+                                    SelectedItem="{Binding SelectedPeer}"
+                                    ItemDisplayBinding="{Binding Name}" />
+                            <Grid ColumnDefinitions="85,*" ColumnSpacing="8">
+                                <Label Text="Adres IP:" FontSize="13"
+                                       TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" />
+                                <Label Grid.Column="1" Text="{Binding SelectedPeer.IpAddress}"
+                                       FontSize="13" />
+                            </Grid>
+                            <Grid ColumnDefinitions="85,*" ColumnSpacing="8">
+                                <Label Text="Platforma:" FontSize="13"
+                                       TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" />
+                                <Label Grid.Column="1" Text="{Binding SelectedPeer.Platform}"
+                                       FontSize="13" />
+                            </Grid>
+                            <Label Text="Tylko aktywne połączenia TCP. Urządzenia łączy się na stronie Połączenia."
+                                   FontSize="12"
+                                   TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Padding="20" StrokeThickness="1"
+                            Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#475569}"
+                            BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="13">
+                            <Label Text="2. Zliczenia do synchronizacji"
+                                   FontSize="19" FontAttributes="Bold" />
+                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Categories}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" Padding="0,5">
+                                            <CheckBox IsChecked="{Binding IsSelected}" VerticalOptions="Center" />
+                                            <Label Grid.Column="1" Text="{Binding Name}"
+                                                   FontSize="16" VerticalOptions="Center" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                            <Label Text="Niezaznaczone rodzaje zliczeń nie zostaną zmienione na żadnym urządzeniu."
+                                   FontSize="12"
+                                   TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <Border Grid.Column="1" Padding="20" StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#475569}"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}"
+                        StrokeShape="RoundRectangle 10"
+                        VerticalOptions="Start">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="3. Typ synchronizacji"
+                               FontSize="19" FontAttributes="Bold" />
+                        <Picker Title="Wybierz typ"
+                                ItemsSource="{Binding Modes}"
+                                SelectedItem="{Binding SelectedMode}" />
+                        <Label Text="{Binding ModeDescription}" FontSize="13"
+                               LineBreakMode="WordWrap"
+                               TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" />
+                        <VerticalStackLayout IsVisible="{Binding IsOverwrite}" Spacing="10">
+                            <BoxView HeightRequest="1"
+                                     Color="{AppThemeBinding Light=#CBD5E1, Dark=#475569}" />
+                            <Label Text="Urządzenie źródłowe"
+                                   FontSize="14" FontAttributes="Bold" />
+                            <Picker Title="Wybierz źródło danych"
+                                    ItemsSource="{Binding Sources}"
+                                    SelectedItem="{Binding SelectedSource}" />
+                            <Label Text="Tylko wybrane zliczenia zostaną nadpisane na urządzeniu docelowym."
+                                   FontSize="12"
+                                   TextColor="{AppThemeBinding Light=#B45309, Dark=#FBBF24}" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <Border Padding="16" StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#475569}"
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}"
+                    StrokeShape="RoundRectangle 10">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="18" RowDefinitions="Auto,Auto">
+                    <Label Grid.Row="0" Text="Status synchronizacji"
+                           FontSize="15" FontAttributes="Bold" />
+                    <HorizontalStackLayout Grid.Row="1" Spacing="10">
+                        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                           IsRunning="{Binding IsBusy}"
+                                           WidthRequest="20" HeightRequest="20" />
+                        <Label Text="{Binding Status}" FontSize="13"
+                               VerticalOptions="Center" LineBreakMode="WordWrap" />
+                    </HorizontalStackLayout>
+                    <Button Grid.Column="1" Grid.RowSpan="2"
+                            Text="Synchronizuj"
+                            Command="{Binding SynchronizeCommand}"
+                            IsEnabled="{Binding CanSync}"
+                            Padding="24,12"
+                            VerticalOptions="Center" />
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

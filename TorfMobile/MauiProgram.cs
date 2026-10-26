@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using TorfMobile.Network;
+using TorfMobile.Sync;
 using TorfMobile.ViewModels;
 
 namespace TorfMobile
@@ -27,7 +28,15 @@ namespace TorfMobile
             builder.Services.AddSingleton<NetworkService>();
             builder.Services.AddSingleton<DeviceConnectionViewModel>();
 
-            return builder.Build();
+            builder.Services.AddSingleton<FoilSqliteSyncStore>();
+            builder.Services.AddSingleton<FoilSyncService>();
+            builder.Services.AddSingleton<SyncViewModel>();
+
+            var app = builder.Build();
+
+            _ = app.Services.GetRequiredService<FoilSyncService>();
+
+            return app;
         }
     }
 }

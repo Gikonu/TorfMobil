@@ -1,4 +1,4 @@
-﻿
+
 namespace TorfMobile
 {
     public partial class WinAppShell : Shell
@@ -33,6 +33,12 @@ namespace TorfMobile
             await GoToAsync("//WinConnectionPage");
         }
 
+        private async void SyncClicked(object sender, TappedEventArgs e)
+        {
+            SetActiveItem(SyncItem);
+            await GoToAsync("//WinSyncPage");
+        }
+
         //private async void SettingsClicked(object sender, TappedEventArgs e)
         //{
         //SetActiveItem(SettingsItem);
@@ -47,6 +53,7 @@ namespace TorfMobile
             HomeItem.BackgroundColor = Colors.Transparent;
             FoilItem.BackgroundColor = Colors.Transparent;
             ConnectItem.BackgroundColor = Colors.Transparent;
+            SyncItem.BackgroundColor = Colors.Transparent;
             SettingsItem.BackgroundColor = Colors.Transparent;
 
             

@@ -97,6 +97,14 @@ namespace TorfMobile
             dataBase.AddFoilTableRow(foil);
         }
 
+        public void ReloadFromDatabase()
+        {
+            foilQueue.Clear();
+            foreach (var foil in foilData.Values)
+                foil.Amount = 0;
+            LoadDataBase();
+        }
+
         private void LoadDataBase()
         {
             nextId = dataBase.GetDataFromFoilTable(foilQueue);

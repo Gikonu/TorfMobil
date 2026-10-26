@@ -149,13 +149,31 @@
                             TextColor="White"/>
 
                         <Label
-                            Text="Synchronizacja"
+                            Text="Połączenia"
                             FontSize="14"
                             TextColor="White"
                             VerticalOptions="Center"/>
 
                     </HorizontalStackLayout>
 
+                </Border>
+
+
+                <!-- SYNCHRONIZACJA ZLICZEŃ -->
+                <Border
+                    x:Name="SyncItem"
+                    HeightRequest="42"
+                    Padding="10,0"
+                    StrokeThickness="0"
+                    BackgroundColor="Transparent">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SyncClicked" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Label Text="⇄" FontSize="18" TextColor="White" />
+                        <Label Text="Synchronizacja" FontSize="14"
+                               TextColor="White" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
                 </Border>
 
             </VerticalStackLayout>
@@ -210,5 +228,9 @@
     <ShellContent
         Route="WinConnectionPage"
         ContentTemplate="{DataTemplate local:WinConnectionPage}"/>
+
+    <ShellContent
+        Route="WinSyncPage"
+        ContentTemplate="{DataTemplate local:WinSyncPage}"/>
 
 </Shell>
